@@ -1,0 +1,38 @@
+{
+    "logger": {
+        "type": "NeptuneLogger",
+        "params": {
+            "offline_mode": true,
+            "project_name": "VQVAE Distiller",
+            "experiment_name": "baseline"
+        }
+    },
+    "trainset": {
+        "data_path": "/mnt/data/Datsets/coco/",
+        "size_src": 256,
+        "size_tgt": 512
+    },
+    "teacher": {
+        "data_path": "configs/vqvae.yml"
+    },
+    "loss": {
+        "perceptual_size": 256,
+        "discriminator_size": 512,
+        "loss_weights": {
+            "l1": 1.0,
+            "l2": 1.0,
+            "loss_p": 1.0,
+            "loss_g": 0.5
+        }
+    },
+    "trainer": {
+        "monitor": "l1",
+        "monitor_mode": "min",
+        "num_workers": 4,
+        "lr_student": 5e-4,
+        "lr_gan": 5e-4,
+        "batch_size": 2,
+        "max_epochs": 100,
+        "reg_d_interval": 16
+    }
+}
